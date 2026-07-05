@@ -27,11 +27,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # Fixed #11: Explicit dependency caching mapping for monorepos
-          cache: 'npm'
-          cache-dependency-path: |
-            backend/package-lock.json
-            frontend/package-lock.json
 
       # Fixed #12: Ensure Python setup is clean for the repository context
       - name: Setup Python Environment
