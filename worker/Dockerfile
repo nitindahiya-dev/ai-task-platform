@@ -29,6 +29,9 @@ RUN chown -R appuser:appgroup /app
 # Ensure local bin is in PATH
 ENV PATH=/home/appuser/.local/bin:$PATH
 ENV PYTHONUNBUFFERED=1
+RUN apt-get update && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
 HEALTHCHECK CMD wget --spider -q http://localhost:8080/health || exit 1
 USER appuser
 
