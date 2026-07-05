@@ -18,7 +18,6 @@ console.log('CORS_ORIGIN:', process.env.CORS_ORIGIN);
 console.log('ENV PATH:', process.cwd());
 // Connect to Database
 connectDB();
-
 const app = express();
 
 // Security Middlewares

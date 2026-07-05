@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY package*.json ./
 # Install only production dependencies
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Stage 2: Final runner image
 FROM node:20-alpine
@@ -22,7 +22,7 @@ COPY src ./src
 # Set production env
 ENV NODE_ENV=production
 ENV PORT=5000
-
+HEALTHCHECK CMD wget --spider -q http://localhost:5000/healthz || exit 1
 # Run as non-root user 'node'
 USER node
 
