@@ -1,0 +1,74 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Pending State */
+.status-badge.pending {
+  background: rgba(240, 173, 78, 0.1);
+  border: 1px solid rgba(240, 173, 78, 0.2);
+  color: #f0ad4e;
+}
+.status-badge.pending .status-dot {
+  background: #f0ad4e;
+}
+
+/* Running State */
+.status-badge.running {
+  background: rgba(91, 192, 222, 0.1);
+  border: 1px solid rgba(91, 192, 222, 0.2);
+  color: #5bc0de;
+}
+.status-badge.running .status-dot {
+  background: #5bc0de;
+  animation: pulse-dot 1.5s infinite;
+}
+
+/* Success State */
+.status-badge.success {
+  background: rgba(92, 184, 92, 0.1);
+  border: 1px solid rgba(92, 184, 92, 0.2);
+  color: #5cb85c;
+}
+.status-badge.success .status-dot {
+  background: #5cb85c;
+}
+
+/* Failed State */
+.status-badge.failed {
+  background: rgba(217, 83, 79, 0.1);
+  border: 1px solid rgba(217, 83, 79, 0.2);
+  color: #d9534f;
+}
+.status-badge.failed .status-dot {
+  background: #d9534f;
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.4;
+  }
+}
