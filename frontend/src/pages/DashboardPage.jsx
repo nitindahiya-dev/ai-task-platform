@@ -144,7 +144,7 @@ const DashboardPage = () => {
         </div>
       ) : tasks.length === 0 ? (
         <div className="glass empty-state">
-          <span className="empty-icon">🤖</span>
+          <span className="empty-icon"></span>
           <p className="empty-text">No tasks created yet</p>
           <button className="btn btn-primary" onClick={() => setIsModalOpen(true)}>
             Create Your First Task

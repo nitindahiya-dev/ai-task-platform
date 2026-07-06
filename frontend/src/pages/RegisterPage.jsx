@@ -50,7 +50,7 @@ const RegisterPage = () => {
     <div className="register-page">
       <div className="glass register-card">
         <div className="register-header">
-          <span className="register-icon">🤖</span>
+          <span className="register-icon"></span>
           <h2 className="register-title">Create Account</h2>
           <p className="register-subtitle">Sign up to process your tasks asynchronously</p>
         </div>

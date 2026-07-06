@@ -38,7 +38,7 @@ const LoginPage = () => {
     <div className="login-page">
       <div className="glass login-card">
         <div className="login-header">
-          <span className="login-icon">🤖</span>
+          <span className="login-icon"></span>
           <h2 className="login-title">Welcome Back</h2>
           <p className="login-subtitle">Sign in to monitor and run your AI tasks</p>
         </div>
