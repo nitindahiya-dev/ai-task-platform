@@ -37,8 +37,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Configuration from environment variables
-REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
-REDIS_PORT = int(os.environ.get('REDIS_PORT', 6379))
+REDIS_URL = os.environ.get("REDIS_URL")
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb://localhost:27017/ai-task-platform')
 WORKER_HEALTH_PORT = int(os.environ.get('WORKER_HEALTH_PORT', 8080))
 
@@ -61,16 +60,14 @@ def connect_redis(max_retries=10, retry_delay=3):
     """Connect to Redis with retry logic."""
     for attempt in range(1, max_retries + 1):
         try:
-            client = redis.Redis(
-                host=REDIS_HOST,
-                port=REDIS_PORT,
+            client = redis.from_url(
+                REDIS_URL,
                 decode_responses=True,
                 socket_connect_timeout=5,
                 socket_timeout=5,
-                retry_on_timeout=True
             )
             client.ping()
-            logger.info(f'Connected to Redis at {REDIS_HOST}:{REDIS_PORT}')
+            logger.info(f"Connected to Redis using {REDIS_URL}")
             return client
         except redis.ConnectionError as e:
             logger.warning(f'Redis connection attempt {attempt}/{max_retries} failed: {e}')
@@ -245,7 +242,7 @@ def main():
     """Main worker entry point."""
     logger.info('=' * 60)
     logger.info('AI Task Processing Worker')
-    logger.info(f'Redis: {REDIS_HOST}:{REDIS_PORT}')
+    logger.info(f"Redis URL: {REDIS_URL}")
     logger.info(f'MongoDB: {MONGO_URI}')
     logger.info(f'Health Port: {WORKER_HEALTH_PORT}')
     logger.info('=' * 60)
