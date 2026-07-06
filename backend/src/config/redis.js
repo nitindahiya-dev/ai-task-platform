@@ -1,20 +1,21 @@
+// redis.js
+
 import Redis from 'ioredis';
 
-const redisHost = process.env.REDIS_HOST || 'localhost';
-const redisPort = parseInt(process.env.REDIS_PORT || '6379', 10);
-
-const redis = new Redis({
-  host: redisHost,
-  port: redisPort,
-  maxRetriesPerRequest: null, // Critical for standard background queues/worker loops
+const redis = new Redis(process.env.REDIS_URL, {
+  maxRetriesPerRequest: null,
 });
 
 redis.on('connect', () => {
-  console.log(`Redis Connected to ${redisHost}:${redisPort}`);
+  console.log('✅ Redis Connected');
+});
+
+redis.on('ready', () => {
+  console.log('🚀 Redis Ready');
 });
 
 redis.on('error', (err) => {
-  console.error(`Redis connection error: ${err.message}`);
+  console.error('❌ Redis Error:', err.message);
 });
 
 export default redis;
