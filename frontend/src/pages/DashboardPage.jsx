@@ -14,7 +14,7 @@ const DashboardPage = () => {
   const [totalTasksCount, setTotalTasksCount] = useState(0);
   const [stats, setStats] = useState({ total: 0, pending: 0, running: 0, completed: 0 });
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const pollingIntervalRef = useRef(null);
 
   const fetchTasks = async (showLoading = true) => {
@@ -24,20 +24,16 @@ const DashboardPage = () => {
       setTasks(data.tasks);
       setTotalPages(data.pagination.pages);
       setTotalTasksCount(data.pagination.total);
-      
+
       // Calculate basic stats for this page / context
       // Note: In production, stats would come from a dedicated API endpoint
-      const statsObj = data.tasks.reduce(
-        (acc, task) => {
-          acc.total += 1;
-          if (task.status === 'pending') acc.pending += 1;
-          else if (task.status === 'running') acc.running += 1;
-          else if (task.status === 'success') acc.completed += 1;
-          return acc;
-        },
-        { total: data.pagination.total, pending: 0, running: 0, completed: 0 }
-      );
-      
+      const statsObj = {
+        total: data.pagination.total,
+        pending: data.tasks.filter(task => task.status === 'pending').length,
+        running: data.tasks.filter(task => task.status === 'running').length,
+        completed: data.tasks.filter(task => task.status === 'success').length,
+      };
+
       setStats(statsObj);
       setError('');
     } catch (err) {
